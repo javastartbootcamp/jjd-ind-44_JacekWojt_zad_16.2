@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Main {
 
     public static final int STRING_LENGTH = 10;
+    public static final int STRING_DATE_LENGTH = 16;
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -23,7 +24,6 @@ public class Main {
 
     private static void showingResult(String dateEntered) {
         List<String> patterns = Arrays.asList("yyyy-MM-dd HH-mm-ss", "yyyy-MM-dd HH:mm:ss", "dd.MM.yyyy HH:mm:ss");
-        System.out.println(dateEntered.length());
         if (dateEntered.length() == STRING_LENGTH) {
             dateEntered += " 00:00:00";
         }
@@ -35,11 +35,11 @@ public class Main {
                 LocalDateTime londonTime = localDateTime.minusHours(1);
                 LocalDateTime losAngelesTime = localDateTime.minusHours(9);
                 LocalDateTime sydneyTime = localDateTime.plusHours(10);
-                System.out.println("Czas lokalny: " + convertToString(localDateTime) + ":00");
-                System.out.println("UTC: " + convertToString(londonTime) + ":00");
-                System.out.println("Londyn: " + convertToString(londonTime) + ":00");
-                System.out.println("Los Angeles: " + convertToString(losAngelesTime) + ":00");
-                System.out.println("Sydney: " + convertToString(sydneyTime) + ":00");
+                System.out.println("Czas lokalny: " + convertToString(localDateTime));
+                System.out.println("UTC: " + convertToString(londonTime));
+                System.out.println("Londyn: " + convertToString(londonTime));
+                System.out.println("Los Angeles: " + convertToString(losAngelesTime));
+                System.out.println("Sydney: " + convertToString(sydneyTime));
                 added = true;
             } catch (DateTimeParseException e) {
                 //ignore
@@ -51,13 +51,16 @@ public class Main {
     }
 
     private static String convertToString(LocalDateTime localDateTime) {
-        String localD = localDateTime.toString();
-        return localD.replace('T', ' ');
+        String strDateTime = localDateTime.toString();
+        String replacedString = strDateTime.replace('T', ' ');
+        if (replacedString.length() == STRING_DATE_LENGTH) {
+            replacedString += ":00";
+        }
+        return replacedString;
     }
 
     private static String collectingDate(Scanner scanner) {
         System.out.println("Podaj datę:");
         return scanner.nextLine();
     }
-
 }
