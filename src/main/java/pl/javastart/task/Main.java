@@ -22,9 +22,9 @@ public class Main {
     }
 
     private static void showingResult(String dateEntered) {
-        List<String> patterns = Arrays.asList("yyyy-MM-dd HH-mm-ss", "yyyy-MM-dd HH:mm", "dd.MM.yyyy HH:mm:ss");
+        List<String> patterns = Arrays.asList("yyyy-MM-dd HH-mm-ss", "yyyy-MM-dd HH:mm:ss", "dd.MM.yyyy HH:mm:ss");
         if (dateEntered.length() == STRING_LENGTH) {
-            dateEntered += " 00:00";
+            dateEntered += " 00:00:00";
         }
         boolean added = false;
         for (String pat : patterns) {
