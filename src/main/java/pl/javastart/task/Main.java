@@ -23,6 +23,7 @@ public class Main {
 
     private static void showingResult(String dateEntered) {
         List<String> patterns = Arrays.asList("yyyy-MM-dd HH-mm-ss", "yyyy-MM-dd HH:mm:ss", "dd.MM.yyyy HH:mm:ss");
+        System.out.println(dateEntered.length());
         if (dateEntered.length() == STRING_LENGTH) {
             dateEntered += " 00:00:00";
         }
@@ -34,11 +35,11 @@ public class Main {
                 LocalDateTime londonTime = localDateTime.minusHours(1);
                 LocalDateTime losAngelesTime = localDateTime.minusHours(9);
                 LocalDateTime sydneyTime = localDateTime.plusHours(10);
-                System.out.println("Czas lokalny: " + convertToString(localDateTime));
-                System.out.println("UTC: " + convertToString(londonTime));
-                System.out.println("Londyn: " + convertToString(londonTime));
-                System.out.println("Los Angeles: " + convertToString(losAngelesTime));
-                System.out.println("Sydney: " + convertToString(sydneyTime));
+                System.out.println("Czas lokalny: " + convertToString(localDateTime) + ":00");
+                System.out.println("UTC: " + convertToString(londonTime) + ":00");
+                System.out.println("Londyn: " + convertToString(londonTime) + ":00");
+                System.out.println("Los Angeles: " + convertToString(losAngelesTime) + ":00");
+                System.out.println("Sydney: " + convertToString(sydneyTime) + ":00");
                 added = true;
             } catch (DateTimeParseException e) {
                 //ignore
