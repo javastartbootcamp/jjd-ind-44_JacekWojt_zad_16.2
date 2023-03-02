@@ -35,7 +35,7 @@ public class Main {
                 LocalDateTime utcTime = localDateTime.minusHours(2);
                 LocalDateTime londonTime = localDateTime.minusHours(1);
                 LocalDateTime losAngelesTime = localDateTime.minusHours(9);
-                LocalDateTime sydneyTime = localDateTime.plusHours(10);
+                LocalDateTime sydneyTime = localDateTime.plusHours(9);
                 System.out.println("Czas lokalny: " + convertToString(localDateTime));
                 System.out.println("UTC: " + convertToString(utcTime));
                 System.out.println("Londyn: " + convertToString(londonTime));
