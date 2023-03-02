@@ -1,6 +1,8 @@
 package pl.javastart.task;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -9,8 +11,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final int STRING_LENGTH = 10;
-    public static final int STRING_DATE_LENGTH = 16;
+    public static final int DATE_LENGTH = 10;
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -24,7 +25,7 @@ public class Main {
 
     private static void showingResult(String dateEntered) {
         List<String> patterns = Arrays.asList("yyyy-MM-dd HH-mm-ss", "yyyy-MM-dd HH:mm:ss", "dd.MM.yyyy HH:mm:ss");
-        if (dateEntered.length() == STRING_LENGTH) {
+        if (dateEntered.length() == DATE_LENGTH) {
             dateEntered += " 00:00:00";
         }
         boolean added = false;
@@ -32,15 +33,16 @@ public class Main {
             try {
                 DateTimeFormatter pattern = DateTimeFormatter.ofPattern(pat);
                 LocalDateTime localDateTime = LocalDateTime.parse(dateEntered, pattern);
-                LocalDateTime utcTime = localDateTime.minusHours(2);
-                LocalDateTime londonTime = localDateTime.minusHours(1);
-                LocalDateTime losAngelesTime = localDateTime.minusHours(9);
-                LocalDateTime sydneyTime = localDateTime.plusHours(9);
-                System.out.println("Czas lokalny: " + convertToString(localDateTime));
-                System.out.println("UTC: " + convertToString(utcTime));
-                System.out.println("Londyn: " + convertToString(londonTime));
-                System.out.println("Los Angeles: " + convertToString(losAngelesTime));
-                System.out.println("Sydney: " + convertToString(sydneyTime));
+                ZonedDateTime zonedDateTimeLocal = ZonedDateTime.of(localDateTime, ZoneId.of("UTC+1"));
+                ZonedDateTime zonedDateTimeUtc = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC+0"));
+                ZonedDateTime zonedDateTimeLondon = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC+0"));
+                ZonedDateTime zonedDateTimeLosAngeles = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC-8"));
+                ZonedDateTime zonedDateTimeSydney = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC+11"));
+                System.out.println("Czas lokalny: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeLocal));
+                System.out.println("UTC: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeUtc));
+                System.out.println("Londyn: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeLondon));
+                System.out.println("Los Angeles: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeLosAngeles));
+                System.out.println("Sydney: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeSydney));
                 added = true;
             } catch (DateTimeParseException e) {
                 //ignore
@@ -49,15 +51,6 @@ public class Main {
         if (!added) {
             System.out.println("Niepoprawny format daty.");
         }
-    }
-
-    private static String convertToString(LocalDateTime localDateTime) {
-        String strDateTime = localDateTime.toString();
-        String replacedString = strDateTime.replace('T', ' ');
-        if (replacedString.length() == STRING_DATE_LENGTH) {
-            replacedString += ":00";
-        }
-        return replacedString;
     }
 
     private static String collectingDate(Scanner scanner) {
