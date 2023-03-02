@@ -33,11 +33,11 @@ public class Main {
             try {
                 DateTimeFormatter pattern = DateTimeFormatter.ofPattern(pat);
                 LocalDateTime localDateTime = LocalDateTime.parse(dateEntered, pattern);
-                ZonedDateTime zonedDateTimeLocal = ZonedDateTime.of(localDateTime, ZoneId.of("UTC+1"));
-                ZonedDateTime zonedDateTimeUtc = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC+0"));
-                ZonedDateTime zonedDateTimeLondon = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC+0"));
-                ZonedDateTime zonedDateTimeLosAngeles = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC-8"));
-                ZonedDateTime zonedDateTimeSydney = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC+11"));
+                ZonedDateTime zonedDateTimeLocal = ZonedDateTime.of(localDateTime, ZoneId.of("Europe/Warsaw"));
+                ZonedDateTime zonedDateTimeUtc = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("UTC"));
+                ZonedDateTime zonedDateTimeLondon = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("Europe/London"));
+                ZonedDateTime zonedDateTimeLosAngeles = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
+                ZonedDateTime zonedDateTimeSydney = zonedDateTimeLocal.withZoneSameInstant(ZoneId.of("Australia/Sydney"));
                 System.out.println("Czas lokalny: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeLocal));
                 System.out.println("UTC: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeUtc));
                 System.out.println("Londyn: " + DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(zonedDateTimeLondon));
